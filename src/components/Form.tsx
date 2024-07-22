@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { categories } from "../data/categories"
+import type { Activity } from "../types"
 export const Form = () => {
 
-    const [activity, setActivity] = useState({
+    const [activity, setActivity] = useState<Activity>({
         category: 1,
         name: '',
         calories: 0
@@ -10,10 +11,17 @@ export const Form = () => {
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
+        const isNumberField = ['category', 'calories'].includes(e.target.id)
         setActivity({
             ...activity,
-            [e.target.id]: e.target.value
+            [e.target.id]: isNumberField ? +e.target.value : e.target.value
         })
+    }
+
+    const isValidActivity = () => {
+        const { name, calories } = activity
+        console.log(name.trim() !== '' && calories > 0)
+        return name.trim() !== '' && calories > 0
     }
     return (
         <form action="" className="space-y-5 bg-white shadow p-10 rounded-lg">
@@ -42,7 +50,11 @@ export const Form = () => {
                         onChange={handleChange} />
                 </div>
 
-                <input type="submit" className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer" value='Guardar comida o Guardar ejercicio' />
+                <input
+                    type="submit"
+                    className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer disabled:opacity-10"
+                    value='Guardar comida o Guardar ejercicio'
+                    disabled={!isValidActivity()} />
             </div>
         </form>
     )
