@@ -30,6 +30,11 @@ export const Form = ({ dispatch }: FormProps) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch({ type: 'save-activity', payload: { newActivity: activity } })
+        setActivity({
+            category: 1,
+            name: '',
+            calories: 0
+        })
     }
     return (
         <form action="" className="space-y-5 bg-white shadow p-10 rounded-lg" onSubmit={handleSubmit}>
