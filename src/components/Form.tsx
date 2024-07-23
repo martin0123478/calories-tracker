@@ -20,11 +20,14 @@ export const Form = () => {
 
     const isValidActivity = () => {
         const { name, calories } = activity
-        console.log(name.trim() !== '' && calories > 0)
         return name.trim() !== '' && calories > 0
     }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        console.log('submit')
+    }
     return (
-        <form action="" className="space-y-5 bg-white shadow p-10 rounded-lg">
+        <form action="" className="space-y-5 bg-white shadow p-10 rounded-lg" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-3">
                 <label htmlFor="category" className="font-bold">Categoria:</label>
                 <select name="" id="category"
@@ -53,7 +56,7 @@ export const Form = () => {
                 <input
                     type="submit"
                     className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer disabled:opacity-10"
-                    value='Guardar comida o Guardar ejercicio'
+                    value={activity.category === 1 ? 'Guardar Comida' : 'Guardar Ejercicio'}
                     disabled={!isValidActivity()} />
             </div>
         </form>
