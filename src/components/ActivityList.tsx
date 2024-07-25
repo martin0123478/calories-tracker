@@ -1,10 +1,14 @@
+import { ActivityActions } from "../reducers/activity-reducer"
 import { Activity } from "../types"
-
+import { PencilSquareIcon } from '@heroicons/react/24/outline'
 type ActivityListProps = {
-    activities: Activity[]
+    activities: Activity[],
+    dispatch: React.Dispatch<ActivityActions>
+
 }
 
-export const ActivityList = ({ activities }: ActivityListProps) => {
+
+export const ActivityList = ({ activities, dispatch }: ActivityListProps) => {
 
     return (
         <>
@@ -23,7 +27,10 @@ export const ActivityList = ({ activities }: ActivityListProps) => {
                             </p>
 
                         </div>
-                        <div>
+                        <div className="flex gap-5 item-center ">
+                            <button onClick={() => dispatch({ type: 'set-activiteId', payload: { id: activity.id } })}>
+                                <PencilSquareIcon className="h-8 w8 text-gray-800" />
+                            </button>
 
                         </div>
 
