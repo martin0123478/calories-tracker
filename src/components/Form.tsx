@@ -22,6 +22,7 @@ export const Form = ({ dispatch, state }: FormProps) => {
     useEffect(() => {
         if (state.activeId) {
             const selectedActivity = state.activities.filter(stateActivity => stateActivity.id === state.activeId)[0]
+            console.log(selectedActivity)
             setActivity(selectedActivity)
         }
 
