@@ -4,15 +4,21 @@ export type ActivityActions =
     { type: 'save-activity', payload: { newActivity: Activity } } |
 
     { type: 'set-activiteId', payload: { id: Activity['id'] } } |
-    { type: 'delete-activity', payload: { id: Activity['id'] } }
+    { type: 'delete-activity', payload: { id: Activity['id'] } } |
+    { type: 'restar-app' }
 
 
 export type ActivityState = {
     activities: Activity[],
     activeId: Activity['id']
 }
+
+const localStorageActivities = () => {
+    const actrivities = localStorage.getItem('activities')
+    return actrivities ? JSON.parse(actrivities) : []
+}
 export const initialState: ActivityState = {
-    activities: [],
+    activities: localStorageActivities(),
     activeId: ''
 
 }
@@ -44,6 +50,13 @@ export const activityReducer = (
         return {
             ...state,
             activities: state.activities.filter(activity => activity.id !== action.payload.id)
+        }
+    }
+
+    if (action.type === 'restar-app') {
+        return {
+            activities: [],
+            activeId: ''
         }
     }
 
